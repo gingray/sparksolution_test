@@ -1,0 +1,25 @@
+!.keep
+*.DS_Store
+*.swo
+*.swp
+/.bundle
+/.env
+/.foreman
+/coverage/*
+/db/*.sqlite3
+/log/*
+/public/*
+/tags
+/tmp/*
+/app/config.codekit
+# Ignore application configuration
+/config/application.yml
+/config/database.yml
+*.retry
+/public/packs
+/public/*
+/node_modules
+.idea/
+*.org
+/config/certs/*
+!/config/certs/.keep
