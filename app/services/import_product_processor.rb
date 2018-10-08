@@ -14,13 +14,16 @@ class ImportProductProcessor
 
   def call
     buffer = []
-    CSV.foreach(csv_file, headers: true) do |row|
+    CSV.foreach(csv_file, headers: true, col_sep: ";") do |row|
       hash = row.to_hash
-      if buffer >= ROW_PER_TASK
-        ImportProductTask.perform_async buffer
-        buffer =[]
+      if buffer.count >= ROW_PER_TASK
+        ImportProductsTask.perform_async buffer
+        buffer = []
       end
       buffer << hash
+    end
+    if buffer.count > 0
+      ImportProductsTask.perform_async buffer
     end
   end
 end

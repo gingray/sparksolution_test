@@ -7,6 +7,10 @@ require 'rspec/rails'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/controller_requests'
 require 'ffaker'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -20,7 +24,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.include Spree::TestingSupport::ControllerRequests, type: :controller
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
   config.render_views
 

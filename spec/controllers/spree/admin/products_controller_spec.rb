@@ -8,13 +8,14 @@ describe Spree::Admin::ProductsController do
     end
   end
 
-  context '#import_csv', focus: true do
-    let(:file) { fixture_file_upload('/sample.csv', 'text/csv') }
+  context '#import_csv' do
+    let(:file) { fixture_file_upload('sample.csv', 'text/csv') }
+    let!(:shipping_category) { create :shipping_category }
     before { sign_in(user) }
 
     before { post :import_csv, params: { import_csv: file } }
     it do
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:redirect)
     end
   end
 end
