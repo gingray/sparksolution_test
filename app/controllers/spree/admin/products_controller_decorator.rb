@@ -4,6 +4,7 @@ Spree::Admin::ProductsController.class_eval do
   end
 
   private
+
   def import_csv_params
     params.permit(:import_csv)
   end
