@@ -1,0 +1,16 @@
+<div class="product-import-container">
+
+  <div class="import-products row col-sm-4 col-sm-offset-4">
+    <h2>Import products from CSV file</h2>
+    <%= form_tag import_csv_admin_products_path, multipart: true do |f|%>
+      <label class="btn btn-info btn-block" for="csv-file-upload">
+        <%= file_field_tag :import_csv, id: "csv-file-upload", class:"custom-file-input", style: "display:none" %>
+        Choose CSV file
+      </label>
+      <div class="upload-btn">
+        <%= submit_tag 'Upload', class:'btn btn-primary' %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
