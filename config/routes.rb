@@ -1,4 +1,4 @@
-
+require 'sidekiq/web'
 Rails.application.routes.draw do
   # This line mounts Spree's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to
@@ -19,4 +19,9 @@ Rails.application.routes.draw do
   end
 
   mount Spree::Core::Engine, at: '/'
+
+
+  authenticate :spree_user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
