@@ -13,6 +13,7 @@ class ImportProductProcessor
   end
 
   def call
+    validate!
     buffer = []
     CSV.foreach(csv_file, headers: true, col_sep: ";") do |row|
       hash = row.to_hash
@@ -25,5 +26,12 @@ class ImportProductProcessor
     if buffer.count > 0
       ImportProductsTask.perform_async buffer
     end
+    [I18n.t('import_products.success'), nil]
+  rescue ImportProductEx::ShippingCategory => e
+    [nil, e.message]
+  end
+
+  def validate!
+    raise ImportProductEx::ShippingCategory unless Spree::ShippingCategory.first
   end
 end
